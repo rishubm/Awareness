@@ -1,0 +1,66 @@
+<!-- Run files on google-addons developer tool-->
+ 
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 10px;
+        background-color: #f4f4f4;
+      }
+      #highlightedText {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      #links {
+        list-style-type: none;
+        padding: 0;
+      }
+      #links li {
+        margin-bottom: 10px;
+      }
+      #links a {
+        text-decoration: none;
+        color: #0073e6;
+      }
+      #links a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="highlightedText">Loading...</div>
+    <ul id="links"></ul>
+
+    <script>
+      // Call the Google Apps Script function to get the highlighted text
+      google.script.run.withSuccessHandler(function(response) {
+        // Set the highlighted text in the sidebar
+        document.getElementById('highlightedText').innerText = response || "No text highlighted";
+        
+        // Here you can fetch search results or any other data
+        // For now, we're just showing links as an example
+        var links = [
+          { url: 'https://www.example.com', text: 'Example Link 1' },
+          { url: 'https://www.example2.com', text: 'Example Link 2' },
+          { url: 'https://www.example3.com', text: 'Example Link 3' }
+        ];
+        
+        // Populate the list of links
+        var linksList = document.getElementById('links');
+        links.forEach(function(link) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = link.url;
+          a.innerText = link.text;
+          li.appendChild(a);
+          linksList.appendChild(li);
+        });
+        
+      }).getHighlightedText(); // Call the Apps Script function to get the highlighted text
+    </script>
+  </body>
+</html>
